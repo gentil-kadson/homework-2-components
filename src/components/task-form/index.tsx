@@ -4,7 +4,7 @@ export default function TaskForm() {
   return (
     <form
       action="POST"
-      className="border-1 p-[2rem] border-gray-300 rounded-md w-fit"
+      className="border-1 p-[2rem] border-gray-300 w-full rounded-md"
     >
       <fieldset className="flex flex-col gap-[1.5rem] text-[1rem]">
         <legend className="font-bold text-[1.3rem] pb-[1.4rem] ">
@@ -16,7 +16,7 @@ export default function TaskForm() {
           name="title"
           id="title"
           placeholder="Título da Tarefa"
-          className="focus:outline-none rounded-md p-2 w-[600px] border-1 border-gray-300"
+          className="focus:outline-none rounded-md p-2 w-full border-1 border-gray-300"
         />
 
         <textarea

@@ -3,7 +3,7 @@ import { Trash2Icon } from "lucide-react";
 
 interface TaskCardProps {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export default function TaskCard({ title, description }: TaskCardProps) {

@@ -1,10 +1,18 @@
 import { PlusIcon } from "lucide-react";
 
-export default function TaskForm() {
+interface TaskFormProps {
+  addTask: (title: string, description?: string) => void;
+}
+
+export default function TaskForm({ addTask }: TaskFormProps) {
   return (
     <form
       action="POST"
       className="border-1 p-[2rem] border-gray-300 w-full rounded-md"
+      onSubmit={(e) => {
+        e.preventDefault();
+        addTask("nova tarefa");
+      }}
     >
       <fieldset className="flex flex-col gap-[1.5rem] text-[1rem]">
         <legend className="font-bold text-[1.3rem] pb-[1.4rem] ">

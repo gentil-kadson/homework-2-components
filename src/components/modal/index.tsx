@@ -27,7 +27,7 @@ const Modal = forwardRef<ModalHandle, ModalProps>(
 
     return (
       <dialog
-        className="m-auto open:flex flex-col items-center shadow-md p-8 gap-8 rounded-md"
+        className="m-auto open:flex flex-col items-center shadow-md p-8 gap-8 rounded-xl"
         ref={modal}
       >
         <h1 className="text-xl font-bold">{title}</h1>

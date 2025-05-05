@@ -6,9 +6,14 @@ import { useRef } from "react";
 interface TaskCardProps {
   title: string;
   description?: string;
+  onConfirmDelete: () => void;
 }
 
-export default function TaskCard({ title, description }: TaskCardProps) {
+export default function TaskCard({
+  title,
+  description,
+  onConfirmDelete,
+}: TaskCardProps) {
   const deleteModal = useRef<ModalHandle>(null);
 
   const deleteModalChildren = (
@@ -18,7 +23,10 @@ export default function TaskCard({ title, description }: TaskCardProps) {
         <strong>"{title}"</strong>?
       </p>
       <div className="flex justify-between w-full">
-        <button className="p-2 cursor-pointer w-[100px] rounded bg-[#18181A] text-white">
+        <button
+          onClick={onConfirmDelete}
+          className="p-2 cursor-pointer w-[100px] rounded bg-[#18181A] text-white"
+        >
           Sim
         </button>
         <button

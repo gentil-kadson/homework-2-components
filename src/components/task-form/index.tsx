@@ -7,10 +7,12 @@ interface TaskFormProps {
 }
 
 export default function TaskForm({ addTask }: TaskFormProps) {
-  const { register, handleSubmit } = useForm<Task>();
+  const { register, handleSubmit, reset } = useForm<Task>();
 
-  const onSubmit: SubmitHandler<Task> = (data) =>
+  const onSubmit: SubmitHandler<Task> = (data) => {
     addTask(data.title, data.description);
+    reset();
+  };
 
   return (
     <form

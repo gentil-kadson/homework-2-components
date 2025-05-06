@@ -42,10 +42,7 @@ export default function TaskCard({
   return (
     <>
       <div className="w-[480px] h-[180px] flex flex-col p-5 gap-[1.5rem] border-1 border-gray-300 rounded-xl">
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="flex justify-between items-center"
-        >
+        <form className="flex justify-between items-center">
           <fieldset className="flex items-center gap-[0.5rem]">
             <input type="checkbox" name="task-title" id="task-title" />
             <label
@@ -56,10 +53,11 @@ export default function TaskCard({
             </label>
           </fieldset>
           <div className="flex items-center gap-[2rem]">
-            <button className="cursor-pointer">
+            <button type="button" className="cursor-pointer">
               <SquarePenIcon color="#18181A" size={20} />
             </button>
             <button
+              type="button"
               className="cursor-pointer"
               onClick={() => deleteModal.current?.open()}
             >

@@ -3,34 +3,27 @@
 import TaskCard from "@/components/task-card";
 import TaskForm from "@/components/task-form";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface Task {
+export interface Task {
+  id: string;
   title: string;
   description?: string;
 }
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      title: "Demitir a Pam",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore laboriosam quae sapiente doloremque similique tempore facilis, officiis minima nostrum molestiae excepturi nihil corrupti eaque officia voluptatem cumque perspiciatis. Fugit, eligendi?",
-    },
-    {
-      title: "Falar com a Ameinda",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore laboriosam quae sapiente doloremque similique tempore facilis, officiis minima nostrum molestiae excepturi nihil corrupti eaque officia voluptatem cumque perspiciatis. Fugit, eligendi?",
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const addTask = (title: string, description?: string) => {
-    setTasks((prevTasks) => [...prevTasks, { title, description }]);
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { id: crypto.randomUUID(), title, description },
+    ]);
   };
 
-  const handleTaskDeletion = (taskIndex: number) => {
+  const handleTaskDeletion = (taskId: string) => {
     setTasks((prevTasks) => {
-      return prevTasks.filter((task, index) => index !== taskIndex);
+      return prevTasks.filter((task) => task.id !== taskId);
     });
   };
 
@@ -39,10 +32,10 @@ export default function Home() {
       <h1 className="text-2xl font-bold">Lista de Tarefas</h1>
       <TaskForm addTask={addTask} />
       <div className="flex w-full justify-between flex-wrap gap-y-4">
-        {tasks.map((task, index) => (
+        {tasks.map((task) => (
           <TaskCard
-            onConfirmDelete={() => handleTaskDeletion(index)}
-            key={`${task.title}-${index}`}
+            onConfirmDelete={() => handleTaskDeletion(task.id)}
+            key={`${task.title}-${task.id}`}
             {...task}
           />
         ))}

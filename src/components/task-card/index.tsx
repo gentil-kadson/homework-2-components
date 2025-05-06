@@ -85,16 +85,12 @@ export default function TaskCard({
           <p className="text-gray-500 line-clamp-3">{task.description}</p>
         )}
       </div>
-      <Modal
-        ref={deleteModal}
-        title="Excluir Tarefa"
-        children={deleteModalChildren}
-      />
-      <Modal
-        ref={editModal}
-        title={`Editar "${task.title}"`}
-        children={editModalChildren}
-      />
+      <Modal ref={deleteModal} title="Excluir Tarefa">
+        {deleteModalChildren}
+      </Modal>
+      <Modal ref={editModal} title={`Editar "${task.title}"`}>
+        {editModalChildren}
+      </Modal>
     </>
   );
 }

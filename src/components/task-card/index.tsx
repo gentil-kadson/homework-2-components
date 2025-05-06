@@ -2,25 +2,28 @@ import { SquarePenIcon } from "lucide-react";
 import { Trash2Icon } from "lucide-react";
 import Modal, { ModalHandle } from "../modal";
 import { useRef } from "react";
+import TaskForm from "../task-form";
+import { Task } from "@/app/page";
 
 interface TaskCardProps {
-  title: string;
-  description?: string;
+  task: Task;
   onConfirmDelete: () => void;
+  onConfirmEdit: (title: string, description?: string) => void;
 }
 
 export default function TaskCard({
-  title,
-  description,
+  task,
   onConfirmDelete,
+  onConfirmEdit,
 }: TaskCardProps) {
   const deleteModal = useRef<ModalHandle>(null);
+  const editModal = useRef<ModalHandle>(null);
 
   const deleteModalChildren = (
     <section className="flex flex-col gap-10 items-center">
       <p>
         Deseja mesmo <strong>excluir</strong> a tarefa{" "}
-        <strong>"{title}"</strong>?
+        <strong>"{task.title}"</strong>?
       </p>
       <div className="flex justify-between w-full">
         <button
@@ -39,6 +42,10 @@ export default function TaskCard({
     </section>
   );
 
+  const editModalChildren = (
+    <TaskForm task={task} handleTaskSubmission={onConfirmEdit} />
+  );
+
   return (
     <>
       <div className="w-[480px] h-[180px] flex flex-col p-5 gap-[1.5rem] border-1 border-gray-300 rounded-xl">
@@ -49,11 +56,15 @@ export default function TaskCard({
               htmlFor="task-title"
               className="font-semibold line-clamp-1 text-[1.2rem]"
             >
-              {title}
+              {task.title}
             </label>
           </fieldset>
           <div className="flex items-center gap-[2rem]">
-            <button type="button" className="cursor-pointer">
+            <button
+              type="button"
+              className="cursor-pointer"
+              onClick={() => editModal.current?.open()}
+            >
               <SquarePenIcon color="#18181A" size={20} />
             </button>
             <button
@@ -65,14 +76,19 @@ export default function TaskCard({
             </button>
           </div>
         </form>
-        {description && (
-          <p className="text-gray-500 line-clamp-3">{description}</p>
+        {task.description && (
+          <p className="text-gray-500 line-clamp-3">{task.description}</p>
         )}
       </div>
       <Modal
         ref={deleteModal}
         title="Excluir Tarefa"
         children={deleteModalChildren}
+      />
+      <Modal
+        ref={editModal}
+        title={`Editar "${task.title}"`}
+        children={editModalChildren}
       />
     </>
   );

@@ -14,7 +14,7 @@ export interface Task {
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const addTask = (title: string, description?: string) => {
+  const handleAddTask = (title: string, description?: string) => {
     setTasks((prevTasks) => [
       ...prevTasks,
       { id: crypto.randomUUID(), title, description },
@@ -27,16 +27,31 @@ export default function Home() {
     });
   };
 
+  const handleEditTask = (
+    taskId: string,
+    title: string,
+    description?: string
+  ) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, title, description } : task
+      )
+    );
+  };
+
   return (
     <main className="m-auto flex flex-col gap-[2.5rem] justify-center items-center w-[1000px]">
       <h1 className="text-2xl font-bold">Lista de Tarefas</h1>
-      <TaskForm addTask={addTask} />
+      <TaskForm handleTaskSubmission={handleAddTask} />
       <div className="flex w-full justify-between flex-wrap gap-y-4">
         {tasks.map((task) => (
           <TaskCard
             onConfirmDelete={() => handleTaskDeletion(task.id)}
+            onConfirmEdit={(title: string, description?: string) =>
+              handleEditTask(task.id, title, description)
+            }
             key={`${task.title}-${task.id}`}
-            {...task}
+            task={task}
           />
         ))}
       </div>

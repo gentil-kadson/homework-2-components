@@ -15,7 +15,7 @@ export default function TaskForm({
 
   const onSubmit: SubmitHandler<Task> = (data) => {
     handleTaskSubmission(data.title, data.description);
-    reset();
+    if (!task) reset();
   };
 
   return (

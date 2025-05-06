@@ -19,6 +19,11 @@ export default function TaskCard({
   const deleteModal = useRef<ModalHandle>(null);
   const editModal = useRef<ModalHandle>(null);
 
+  const handleEdit = (title: string, description?: string) => {
+    onConfirmEdit(title, description);
+    editModal.current?.close();
+  };
+
   const deleteModalChildren = (
     <section className="flex flex-col gap-10 items-center">
       <p>
@@ -43,7 +48,7 @@ export default function TaskCard({
   );
 
   const editModalChildren = (
-    <TaskForm task={task} handleTaskSubmission={onConfirmEdit} />
+    <TaskForm task={task} handleTaskSubmission={handleEdit} />
   );
 
   return (

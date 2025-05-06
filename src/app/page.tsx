@@ -3,7 +3,7 @@
 import TaskCard from "@/components/task-card";
 import TaskForm from "@/components/task-form";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export interface Task {
   id: string;

@@ -3,7 +3,7 @@
 import TaskCard from "@/components/task-card";
 import TaskForm from "@/components/task-form";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface Task {
   id: string;
@@ -13,6 +13,15 @@ export interface Task {
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) setTasks(JSON.parse(storedTasks));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleAddTask = (title: string, description?: string) => {
     setTasks((prevTasks) => [
